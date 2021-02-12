@@ -54,6 +54,7 @@ public class Board : MonoBehaviour
             (COLUMS - 1) / 2.0f, -((ROWS - 3) / 2.0f), Camera.main.transform.position.z);
     }
 
+    // Check the first row if available
     public bool IsValidLocation(int col)
     {
         return (map[0, col] == 0);
