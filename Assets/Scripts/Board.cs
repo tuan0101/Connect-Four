@@ -54,6 +54,11 @@ public class Board : MonoBehaviour
             (COLUMS - 1) / 2.0f, -((ROWS - 3) / 2.0f), Camera.main.transform.position.z);
     }
 
+    public bool IsValidLocation(int col)
+    {
+        return (map[0, col] == 0);
+    }
+
     public int GetColums() { return COLUMS; }
     public int GetRows() { return ROWS; }
 }
