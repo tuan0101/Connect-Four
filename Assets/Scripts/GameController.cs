@@ -50,4 +50,11 @@ public class GameController : MonoBehaviour
         startPos = new Vector3(col, startPos.y, startPos.z);
         endPos = new Vector3(col, (row) * (-1), startPos.z);
     }
+
+    int GetColorTurn()
+    {
+        int color = (int)Piece.Empty;
+        color = isPlyaerTurn ? (int)Piece.Yellow : (int)Piece.Red;
+        return color;
+    }
 }
