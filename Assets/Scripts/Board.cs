@@ -69,6 +69,46 @@ public class Board : MonoBehaviour
         return 0;
     }
 
+    public bool WinCondition(int color)
+    {
+        // Check horizontal case for win
+        for (int c = COLUMS - 1; c >= 3; c--)
+            for (int r = ROWS - 1; r >= 3; r--)
+            {
+                if (map[r, c] == color && map[r, c - 1] == color
+                    && map[r, c - 2] == color && map[r, c - 3] == color)
+                    return true;
+            }
+
+        // Check vertical locations for win
+        for (int c = COLUMS - 1; c >= 0; c--)
+            for (int r = ROWS - 1; r >= 3; r--)
+            {
+                if (map[r, c] == color && map[r - 1, c] == color
+                    && map[r - 2, c] == color && map[r - 3, c] == color)
+                    return true;
+            }
+
+        //Check for negatively sloped diagnols 
+        for (int c = COLUMS - 1; c >= 3; c--)
+            for (int r = ROWS - 1; r >= 3; r--)
+            {
+                if (map[r, c] == color && map[r - 1, c - 1] == color
+                    && map[r - 2, c - 2] == color && map[r - 3, c - 3] == color)
+                    return true;
+            }
+
+        //Check for positively sloped diagnols 
+        for (int c = 0; c < COLUMS - 3; c++)
+            for (int r = ROWS - 1; r >= 3; r--)
+            {
+                if (map[r, c] == color && map[r - 1, c + 1] == color
+                    && map[r - 2, c + 2] == color && map[r - 3, c + 3] == color)
+                    return true;
+            }
+        return false;
+    }
+
     public int GetColums() { return COLUMS; }
     public int GetRows() { return ROWS; }
 }
