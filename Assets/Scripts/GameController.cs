@@ -40,4 +40,14 @@ public class GameController : MonoBehaviour
 
         return newPiece;
     }
+
+    void GetPos(int row, int col)
+    {
+        //col = (int)currentPiece.transform.position.x;
+        startPos = currentPiece.transform.position;
+        endPos = new Vector3();
+
+        startPos = new Vector3(col, startPos.y, startPos.z);
+        endPos = new Vector3(col, (row) * (-1), startPos.z);
+    }
 }
