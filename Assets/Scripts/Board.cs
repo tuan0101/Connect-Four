@@ -59,6 +59,16 @@ public class Board : MonoBehaviour
         return (map[0, col] == 0);
     }
 
+    public int GetNextOpenRow(int col)
+    {
+        for (int row = ROWS - 1; row >= 0; row--)
+        {
+            if (map[row, col] == 0)
+                return row;
+        }
+        return 0;
+    }
+
     public int GetColums() { return COLUMS; }
     public int GetRows() { return ROWS; }
 }
