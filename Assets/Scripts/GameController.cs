@@ -66,4 +66,10 @@ public class GameController : MonoBehaviour
                                     Mathf.Clamp(mouse.x, 0, board.GetColums() - 1), // limit the piece position when the mouse 
                                     1, 1);                                          // move out of the board space.
     }
+
+    void UpdateBoard(int row, int col, int color)
+    {
+        board.map[row, col] = color;
+        //Debug.Log("Row: " + row + " Col: " + col + " value: " + board.map[row, col]);
+    }
 }
