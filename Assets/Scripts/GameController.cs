@@ -72,4 +72,21 @@ public class GameController : MonoBehaviour
         board.map[row, col] = color;
         //Debug.Log("Row: " + row + " Col: " + col + " value: " + board.map[row, col]);
     }
+
+    IEnumerator DropPieceAnimation(GameObject tempPiece)
+    {
+        float t = 0;
+        int speed = 3;
+        currentPiece = SpawnPiece();
+        while (t < 1)
+        {
+            t += Time.deltaTime * speed;
+            tempPiece.transform.position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+
+        }
+        //activating the preparing() function
+        isDroping = false;
+        isAITurn = !isAITurn; // toggle AI each move
+    }
 }
