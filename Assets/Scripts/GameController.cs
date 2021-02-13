@@ -89,4 +89,19 @@ public class GameController : MonoBehaviour
         isDroping = false;
         isAITurn = !isAITurn; // toggle AI each move
     }
+
+    IEnumerator DropPieceAtColumn(int col, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        int row = board.GetNextOpenRow(col);
+        GetPos(row, col);
+        int color = GetColorTurn();
+
+        StartCoroutine(DropPieceAnimation(currentPiece));
+        UpdateBoard(row, col, color);
+        if (board.WinCondition(color))
+        {
+            print("Color " + color + " win!!");
+        }
+    }
 }
