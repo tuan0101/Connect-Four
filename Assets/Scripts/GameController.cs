@@ -33,8 +33,8 @@ public class GameController : MonoBehaviour
     {
         Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        GameObject newPiece = Instantiate(//pieceYellow,new Vector3(1,1,1),
-            isPlayerTurn ? pieceYellow : pieceRed, // if it's player turn, get yellow piece, else red
+        GameObject newPiece = Instantiate(
+            isPlayerTurn ? pieceYellow : pieceRed,
             new Vector3(Mathf.Clamp(spawnPos.x, 0, board.GetColums() - 1), 1, 1),
             Quaternion.identity) as GameObject;
 
@@ -56,5 +56,14 @@ public class GameController : MonoBehaviour
         int color = (int)Piece.Empty;
         color = isPlyaerTurn ? (int)Piece.Yellow : (int)Piece.Red;
         return color;
+    }
+
+    void Preparing(GameObject tempPiece)
+    {
+        Vector3 mouse = new Vector3(Input.mousePosition.x, 1f, 1f);
+        mouse = Camera.main.ScreenToWorldPoint(mouse);
+        tempPiece.transform.position = new Vector3(
+                                    Mathf.Clamp(mouse.x, 0, board.GetColums() - 1), // limit the piece position when the mouse 
+                                    1, 1);                                          // move out of the board space.
     }
 }
