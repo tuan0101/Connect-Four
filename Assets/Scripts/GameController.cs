@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    enum Piece
-    {
-        Empty = 0, Yellow = 1, Red = 2
-    }
+    const int EMPTY = 0, PLAYER_PIECE = 1, AI_PIECE = 2;
+    const int MAX = 999999, MIN = -999999;
+    const int WINDOW_LENGTH = 4;
 
     public GameObject pieceRed;
     public GameObject pieceYellow;
@@ -16,8 +15,8 @@ public class GameController : MonoBehaviour
     GameObject currentPiece;
 
     bool allowMousePress = true;
-    //bool gameOver = false;
-    bool isPlayerTurn = false;
+    bool gameOver = false;
+    bool isPlayerTurn = true, isAITurn = false;
     bool isDroping = false;
 
     int col;
