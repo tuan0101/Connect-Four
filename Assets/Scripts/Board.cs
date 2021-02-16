@@ -70,11 +70,11 @@ public class Board : MonoBehaviour
         return validLocations;
     }
 
-    public int GetNextOpenRow(int col)
+    public int GetNextOpenRow(int[,] tempBoard, int col)
     {
         for (int row = ROWS - 1; row >= 0; row--)
         {
-            if (map[row, col] == 0)
+            if (tempBoard[row, col] == 0)
                 return row;
         }
         return 0;
