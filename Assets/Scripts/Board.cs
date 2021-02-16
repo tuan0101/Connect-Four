@@ -80,7 +80,8 @@ public class Board : MonoBehaviour
         return 0;
     }
 
-    public bool WinCondition(int color)
+    // @map is tempBoard
+    public bool WinCondition(int[,] map, int color)
     {
         // Check horizontal case for win
         for (int c = COLUMS - 1; c >= 3; c--)
