@@ -55,9 +55,9 @@ public class Board : MonoBehaviour
     }
 
     // Check the first row if available
-    public bool IsValidLocation(int col)
+    public bool IsValidLocation(int[,] tempBoard, int col)
     {
-        return (map[0, col] == 0);
+        return (tempBoard[0, col] == 0);
     }
 
     public int GetNextOpenRow(int col)
