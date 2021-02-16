@@ -60,6 +60,16 @@ public class Board : MonoBehaviour
         return (tempBoard[0, col] == 0);
     }
 
+    public List<int> GetValidLocations(int[,] tempBoard)
+    {
+        List<int> validLocations = new List<int>();
+        for (int col = 0; col < COLUMNS; col++)
+        {
+            if (IsValidLocation(tempBoard, col)) validLocations.Add(col);
+        }
+        return validLocations;
+    }
+
     public int GetNextOpenRow(int col)
     {
         for (int row = ROWS - 1; row >= 0; row--)
