@@ -57,6 +57,18 @@ public class GameController : MonoBehaviour
         return color;
     }
 
+    GameObject SpawnPiece()
+    {
+        Vector3 spawnPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        GameObject newPiece = Instantiate(
+            isPlayerTurn ? pieceYellow : pieceRed,
+            new Vector3(Mathf.Clamp(spawnPos.x, 0, board.GetColumns() - 1), 1, 1),
+            Quaternion.identity) as GameObject;
+
+        return newPiece;
+    }
+
     void Preparing(GameObject tempPiece)
     {
         Vector3 mouse = new Vector3(Input.mousePosition.x, 1f, 1f);
