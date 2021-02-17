@@ -106,13 +106,18 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         int row = board.GetNextOpenRow(col);
         GetPos(row, col);
-        int color = GetColorTurn();
 
         StartCoroutine(DropPieceAnimation(currentPiece));
         UpdateBoard(row, col, color);
-        if (board.WinCondition(color))
+        if (board.WinCondition(board.map, piece))
         {
-            print("Color " + color + " win!!");
+            print("Color " + piece + " win!!");
+            gameOver = true;
         }
+        if (board.GetValidLocations(board.map).Count == 0)
+        {
+            print("A Draw Game!");
+            gameOver = true;
+        } 
     }
 }
