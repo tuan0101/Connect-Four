@@ -78,9 +78,9 @@ public class GameController : MonoBehaviour
                                     1, 1);                                          // move out of the board space.
     }
 
-    void UpdateBoard(int row, int col, int color)
+    void UpdateBoard(int[,] board, int row, int col, int color)
     {
-        board.map[row, col] = color;
+        board[row, col] = color;
         //Debug.Log("Row: " + row + " Col: " + col + " value: " + board.map[row, col]);
     }
 
