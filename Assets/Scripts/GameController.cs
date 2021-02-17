@@ -120,4 +120,10 @@ public class GameController : MonoBehaviour
             gameOver = true;
         } 
     }
+
+    bool IsTerminalNode(int[,] tempBoard)
+    {
+        return (board.WinCondition(tempBoard, PLAYER_PIECE) || board.WinCondition(tempBoard, AI_PIECE)
+                || board.GetValidLocations(tempBoard).Count == 0);
+    }
 }
