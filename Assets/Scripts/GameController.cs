@@ -126,4 +126,23 @@ public class GameController : MonoBehaviour
         return (board.WinCondition(tempBoard, PLAYER_PIECE) || board.WinCondition(tempBoard, AI_PIECE)
                 || board.GetValidLocations(tempBoard).Count == 0);
     }
+
+    // A helper function to evaluate a score of a window of 4 spaces
+    int EvaluateWindow(List<int> window, int piece)
+    {
+        int score = 0;
+        int oppPice = piece == PLAYER_PIECE ? AI_PIECE : PLAYER_PIECE;
+        // how many same color pieces appears within this window
+        int countPiece = window.Where(p => p == piece).Count();
+        int countEmpty = window.Where(p => p == EMPTY).Count();
+        int countOppPiece = window.Where(p => p == oppPice).Count();
+
+        if (countPiece == 4) { score += 1000; Debug.Log("countPiece   " + countPiece); }
+        else if (countPiece == 3 && countEmpty == 1) { score += 5; }
+        else if (countPiece == 2 && countEmpty == 2) score += 2;
+
+        if (countOppPiece == 3 && countEmpty == 1) score -= 40;
+        if (countOppPiece == 2 && countEmpty == 2) score -= 10;
+        return score;
+    }
 }
