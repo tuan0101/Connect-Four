@@ -205,4 +205,55 @@ public class GameController : MonoBehaviour
             //Debug.Log("min column   "+column+"   value   "+value);
             return (column, value);
         }
+    }
+
+    /*
+    Calculate the score for the next move in
+    horizontal, vertical and diagnal directions
+    */
+    int ScorePosition(int[,] tempBoard, int piece)
+    {
+        int score = 0;
+        
+        // Center Score
+        List<int> centerArray = new List<int>();
+        for (int row=0; row<board.GetRows(); row++){
+            centerArray.Add(tempBoard[row, board.GetColumns()/2]); //midle column
+        }
+        int centerCount = centerArray.Where(p=>p==piece).Count();
+        score += centerCount*3;
+
+        // Horizontal Score
+        for(int row=board.GetRows()-1; row>=0; row--){
+            List<int> rowArray = new List<int>();
+            
+            for(int col=board.GetColumns()-1; col>=0; col--){
+                rowArray.Add(tempBoard[row, col]);
+            }
+
+            for(int col=board.GetColumns()-WINDOW_LENGTH; col>=0; col--){
+                List<int> window = new List<int>();
+                window = rowArray.GetRange(col, WINDOW_LENGTH);
+                score += EvaluateWindow(window, piece);
+            }
+        }
+
+        // Vertical Score
+        for(int col=board.GetColumns()-1; col>=0; col--){
+            List<int> colArray = new List<int>();
+            
+            for(int row=board.GetRows()-1; row>=0; row--){
+                colArray.Add(tempBoard[row, col]);
+            }
+
+            for(int row=board.GetRows()-WINDOW_LENGTH; row>=0; row--){
+                List<int> window = new List<int>();
+                window = colArray.GetRange(row, WINDOW_LENGTH);
+                score += EvaluateWindow(window, piece);
+            }
+        }
+
+        
+        return score;
+    }
 }
