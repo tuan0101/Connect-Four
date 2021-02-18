@@ -145,4 +145,64 @@ public class GameController : MonoBehaviour
         if (countOppPiece == 2 && countEmpty == 2) score -= 10;
         return score;
     }
+
+    (int?, int) MiniMax(int[,] tempBoard, int depth, int alpha, int beta, bool maximizingPlayer)
+    {
+        int column=3, value=0;
+        List<int> validLocations = board.GetValidLocations(tempBoard);
+        bool isTerminal = IsTerminalNode(tempBoard);
+        if (validLocations.Count==0) return (null, MAX);
+        if (depth==0 || isTerminal){
+            if (isTerminal){
+                if (board.WinCondition(tempBoard, PLAYER_PIECE)) return (validLocations[0], MIN);
+                else if (board.WinCondition(tempBoard, AI_PIECE)) return (validLocations[0], MAX);
+                else return (validLocations[0], 0); //Game is over or draw
+            } 
+            else
+            {
+                return (validLocations[0], ScorePosition(tempBoard, AI_PIECE));
+            }
+        }
+
+        if (maximizingPlayer){
+            value = MIN;
+            column = Random.Range(0, validLocations.Count);
+            
+            //Debug.Log("randomIndex   "+randomIndex+"   column   "+column);
+            foreach (int col in validLocations)
+            {
+                int row = board.GetNextOpenRow(tempBoard, col);
+                int[,] boardCoppy = tempBoard.Clone() as int[,];
+                UpdateBoard(boardCoppy, row, col, AI_PIECE);
+                var (_col, newScore) = MiniMax(boardCoppy, depth-1, alpha, beta, false);
+                if (newScore > value){
+                    value = newScore;
+                    column = col;
+                }
+                alpha = Mathf.Max(alpha, value);
+                if (alpha >= beta)  break;
+            }
+            //Debug.Log("max column   "+column+"   value   "+value);
+            return (column, value);
+        } else {
+            value = MAX;
+            int randomIndex = Random.Range(0, validLocations.Count);
+            column = validLocations[randomIndex];
+
+            foreach (int col in validLocations)
+            {
+                int row = board.GetNextOpenRow(tempBoard, col);
+                int[,] boardCoppy = tempBoard.Clone() as int[,];
+                UpdateBoard(boardCoppy, row, col, PLAYER_PIECE);
+                var (_col, newScore) = MiniMax(boardCoppy, depth-1, alpha, beta, true);
+                if (newScore < value){
+                    value = newScore;
+                    column = col;
+                }
+                beta = Mathf.Min(beta, value);
+                if (alpha >= beta)  break;
+            }
+            //Debug.Log("min column   "+column+"   value   "+value);
+            return (column, value);
+        }
 }
