@@ -253,7 +253,28 @@ public class GameController : MonoBehaviour
             }
         }
 
-        
+        // Positive sloped diagnoal Score
+        for(int row=board.GetRows()-WINDOW_LENGTH; row>=0; row--){
+            for(int col=board.GetColumns()-WINDOW_LENGTH; col>=0; col--){
+                List<int> window = new List<int>();
+                for (int i=0; i<WINDOW_LENGTH; i++){
+                    window.Add(tempBoard[row+i, col+i]);
+                    score += EvaluateWindow(window, piece);
+                }
+            }
+        }
+
+        // Negative sloped diagnoal Score
+        for(int row=board.GetRows()-WINDOW_LENGTH; row>=0; row--){
+            for(int col=board.GetColumns()-WINDOW_LENGTH; col>=0; col--){
+                List<int> window = new List<int>();
+                for (int i=0; i<WINDOW_LENGTH; i++){
+                    window.Add(tempBoard[row+3-i, col+i]);
+                    score += EvaluateWindow(window, piece);
+                }
+            }
+        }
+
         return score;
     }
 }
