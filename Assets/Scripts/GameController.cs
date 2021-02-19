@@ -277,4 +277,31 @@ public class GameController : MonoBehaviour
 
         return score;
     }
+
+    int PickBestMove(int piece)
+    {
+        List<int> validLocations = board.GetValidLocations(board.map);
+        int randomIndex = Random.Range(0, validLocations.Count);
+        int bestCol = validLocations[randomIndex];
+        int bestScore = -10000;
+
+        foreach (var col in validLocations)
+        {
+            int row = board.GetNextOpenRow(board.map, col);
+            int[,] tempBoard = board.map.Clone() as int[,];
+
+            UpdateBoard(tempBoard, row, col, piece);
+            //tempBoard[row, col] = piece;
+            int score = ScorePosition(tempBoard, piece);
+            //Debug.Log("tempBoard   "+row+" "+col+" "+board.map[row, col]);
+
+            if (score > bestScore){
+                Debug.Log("best score    "+score);
+                bestScore = score;
+                bestCol = col;
+            }
+        }
+        Debug.Log("best col   " + bestCol);
+        return bestCol;
+    }
 }
