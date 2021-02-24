@@ -1,2 +1,2 @@
 # Connect-Four
- Connect 4
+A practice of implementing Mini-Max algorithm
